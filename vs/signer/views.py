@@ -29,3 +29,15 @@ def signup(request):
     else:
         #if the request is GET and not POST.
         return render(request, 'signer/signup.html')
+
+
+def log_in(request):
+    if request.method == 'POST':
+        user = authenticate(username=request.POST['Username'], password=request.POST['pass1'])
+        if user is not None:
+            login(request,user)
+            return render(request, 'signer/login.html', {'error': 'LOGGED IN!!!'})
+        else:
+            return render(request, 'signer/login.html', {'error': 'Wrong Credentials! Try Again'})
+    else:
+        return render(request, 'signer/login.html')

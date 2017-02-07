@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from vs.signer.views import signup
+from vs.signer.views import *
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^signup/', signup, name='signup'),
+    url(r'^login/', log_in, name='log_in'),
 ]
