@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 # Create your views here.
 
 
@@ -11,14 +12,15 @@ def signup(request):
             #Try block to give an error if username already taken by some other user.
             try:
                 #imported from User module, checks all objects from database using get function and compare them with the form username.
-                user =  User.objects.get(username = request.POST['Username'])
+                User.objects.get(username = request.POST['Username'])
                 #if tried and found a conflict in username, throw the return, else it goes in except part
                 return render(request, 'signer/signup.html', {'error': 'Username Already Taken'})
             #if User does not exist in database
             except User.DoesNotExist:
                 #create a user with username and password from POST function
-                User.objects.create_user(request.POST['Username'], password = request.POST['pass1'], email=request.POST
+                user = User.objects.create_user(request.POST['Username'], password = request.POST['pass1'], email=request.POST
                 ['emaik'])
+                login(request, user)
                 #finally return the signup html after successfull completion
             return render(request, 'signer/signup.html')
         else:
