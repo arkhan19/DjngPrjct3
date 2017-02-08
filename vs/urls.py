@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-#from vs.signer.views import *
+from vs.posts import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.home, name='home'),
     url(r'^accounts/', include('vs.signer.urls')),
     url(r'^posts/', include('vs.posts.urls')),
 ]
