@@ -36,11 +36,12 @@ def log_in(request):
         user = authenticate(username=request.POST['Username'], password=request.POST['pass1'])
         if user is not None:
             login(request,user)
-            if next in request: #checks if next is in POST, so that it doesn't get stuck when no next.
-            #redirecting after logging in; POST = post function not Post App.
-                if request.POST[next] is not None:
-                    return redirect(request.POST[next])
-            return render(request, 'signer/login.html', {'error': 'LOGGED IN!!!'})
+            if 'next' in request.POST: # checks if next is in POST, so that it doesn't get stuck when no next.
+            # redirecting after logging in; POST = post function not Post App.
+                return redirect(request.POST['next'])
+                #return render(request, 'signer/login.html', {'error': 'I WENT IN'})
+            else:
+                return render(request, 'signer/login.html', {'error': 'LOGGED IN!!!'})
         else:
             return render(request, 'signer/login.html', {'error': 'Wrong Credentials! Try Again'})
     else:
