@@ -8,5 +8,20 @@
 <h1> DJNG PRJCT </h1>
 <br />
 <a href= "{% url 'posts:create' %}" >New Post</a>
+
+<br /><br />
+
+{% for post in post_obj_for_html.all %}
+<a href = {{ post.url }}>{{ post.title }}</a> <br/>
+
+on {{post.pub_date}} by {{post.author}} with {{post.commends}} commends.
+<br />
+<a href="#">Commend UP</a><a href="#">Commend DOWN</a>
+<br/><br/>
+<br/><br/>
+{% endfor %}
+
+
+
 </body>
 </html>

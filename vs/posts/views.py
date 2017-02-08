@@ -7,7 +7,8 @@ from vs.posts.models import Posts  # model class
 
 
 def home(request):
-    return render(request, 'posts/home.html')
+    homies = Posts.objects.order_by('commends')
+    return render(request, 'posts/home.html', {'post_obj_for_html': homies})
 
 
 @login_required
