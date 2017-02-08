@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 # Create your views here.
@@ -18,8 +18,8 @@ def signup(request):
             #if User does not exist in database
             except User.DoesNotExist:
                 #create a user with username and password from POST function
-                user = User.objects.create_user(request.POST['Username'], password = request.POST['pass1'], email=request.POST
-                ['emaik'])
+                user = User.objects.create_user(request.POST['Username'], password = request.POST['pass1'],
+                                                email=request.POST['emaik'])
                 login(request, user)
                 #finally return the signup html after successfull completion
             return render(request, 'signer/signup.html')
@@ -36,6 +36,9 @@ def log_in(request):
         user = authenticate(username=request.POST['Username'], password=request.POST['pass1'])
         if user is not None:
             login(request,user)
+            #redirecting after logging in; POST = post function not Post App.
+            if request.POST[next] is not None:
+                return redirect(request.POST[next])
             return render(request, 'signer/login.html', {'error': 'LOGGED IN!!!'})
         else:
             return render(request, 'signer/login.html', {'error': 'Wrong Credentials! Try Again'})
