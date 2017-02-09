@@ -7,5 +7,9 @@ app_name = 'posts'
 
 urlpatterns = [
     url(r'^create/', create, name='create'),
-    #url(r'^login/', log_in, name='log_in'),
+    #   url(r'^login/', log_in, name='log_in'),
+    # regex PostID/commendup [0-9] any numnber + = any length
+    url(r'^(?P<pk>[0-9]+)/up/', c_up, name='counter_up'),
+    # regex PostID/commenddown
+    url(r'^(?P<pk>[0-9]+)/down/', c_down, name='counter_down'),
 ]

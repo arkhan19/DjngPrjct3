@@ -7,7 +7,7 @@ from vs.posts.models import Posts  # model class
 
 
 def home(request):
-    homies = Posts.objects.order_by('commends')
+    homies = Posts.objects.order_by('pub_date')
     return render(request, 'posts/home.html', {'post_obj_for_html': homies})
 
 
@@ -30,6 +30,27 @@ def create(request):
 
 def __str__(self):
     return '%s' % self.title
+
+
+def c_up(request, pk):
+    if request.method == 'POST':
+        #  model's primary key
+        counter = Posts.objects.get(pk=pk)
+        counter.commends +=1
+        counter.save()
+        return redirect('home')
+
+
+def c_down(request, pk):
+    #  model's primary key
+    if request.method == 'POST':
+        counter = Posts.objects.get(pk=pk)
+        counter.commends -=1
+        counter.save()
+        return redirect('home')
+
+
+
 
 
 

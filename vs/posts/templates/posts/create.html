@@ -9,7 +9,7 @@
     <!--url in post is for the views method that will be accepting this request. VERY IMPORTANT TO DIFFER.-->
     <form action="{% url 'posts:create' %}" method="POST">
         {% csrf_token %}
-        Title : <br /> <input  type="text" name="title" /><br />
+        Title : <br /> <input type="text" name="title" title="Post From"/><br />
         URL to Video : <br /> <input type = text name = "u_r_l" /><br /><br />
         <input type="submit" value="Create Post" />
     </form>

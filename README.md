@@ -1,3 +1,4 @@
 # DjngPrjct3
-LLLLL.
- Readme Later
+Home Page - Login (accounts/login)
+          - Signup (accounts/sign_up)
+          - New Post (posts/create)
