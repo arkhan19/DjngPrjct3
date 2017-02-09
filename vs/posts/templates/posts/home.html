@@ -7,6 +7,7 @@
 <body>
 <h1> DJNG PRJCT </h1>
 <br />
+<a href= "{% url 'signer:log_in' %}" >Log in</a>
 <a href= "{% url 'posts:create' %}" >New Post</a>
 
 <br /><br />
@@ -20,8 +21,6 @@ on {{post.pub_date}} by {{post.author}} with {{post.commends}} commends.
 <br/><br/>
 <br/><br/>
 {% endfor %}
-
-
 
 </body>
 </html>
