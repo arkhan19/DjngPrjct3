@@ -37,7 +37,7 @@
     </div>
       <div class="collapse navbar-collapse" id="navb">
       <ul class="nav navbar-nav">
-          <li><a href=" # ">About Me</a></li>
+          <li><a href=" {% url 'posts:create' %} ">Create Post</a></li>
           <li><a href = "https://github.com/dARKf3n1Xx/">Github</a></li>
           <li><a href = "https://twitter.com/dARK_f3n1Xx">Twitter</a></li>
       </ul>
@@ -60,7 +60,7 @@
 </nav>
 
 
-<div class = "container" align="center" >
+<div class = "container" align="left" >
     {% block content %}
     {% endblock %}
 </div>

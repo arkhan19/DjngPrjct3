@@ -10,27 +10,38 @@
     <title>HOME</title>
 </head>
 <body>
-<h1> DJNG PRJCT </h1>
+<h1> DJNG PRJCT 3</h1>
+
 
 {% for post in post_obj_for_html.all %}
-<a href = {{ post.url }}>{{ post.title }}</a> <br/>
 
-on {{post.pub_date}} by {{post.author}} with {{post.commends}} commends.
-
-    <!--This section Contains the Commendation System -->
+    <table>
+            <td style="padding-left: 30px;" onclick="document.getElementById('thumbs_up').submit()">
+                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">
+                    <form action = "{% url 'posts:counter_up' post.id %}" method="POST" id="thumbs_up">
+                        {% csrf_token %}
+                        <input type="hidden" />
+                    </form>
+                </span>
+            </td>
+            <td><a href = {{ post.url }}>{{ post.title }}</a></td>
+            <td style="padding-left: 30px;" onclick="document.getElementById('thumbs_down').submit()">
+                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">
+                    <form action = "{% url 'posts:counter_down' post.id %}" method="POST" id="thumbs_down">
+                        {% csrf_token %}
+                        <input type="hidden" />
+                    </form>
+                </span>
+            </td>
+        </tr>
+    <tr></tr>
+         <td style="padding-right: 20px">By : {{post.author}} <br/></td>
+         <td>Commends : {{post.commends}} <br/></td>
+        <td style="padding-left: 28px">Published on : {{post.pub_date}} <br/></td>
+    </table>
+    <br/>
+    <br />
 <br />
-
-    <form action = "{% url 'posts:counter_up' post.id %}" method="POST" >
-        {% csrf_token %}
-        <input type="submit" value="Commend Up" />
-    </form>
-
-    <form action = "{% url 'posts:counter_down' post.id %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="Commend Down" />
-    </form>
-
-<br/><br/>
 {% endfor %}
 
 </body>
