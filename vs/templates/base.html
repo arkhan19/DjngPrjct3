@@ -32,7 +32,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">DJNG PRJCT 3</a>
+      <a class="navbar-brand" href="{% url 'home' %}">DJNG PRJCT 3</a>
 
     </div>
       <div class="collapse navbar-collapse" id="navb">
@@ -41,23 +41,36 @@
           <li><a href = "https://github.com/dARKf3n1Xx/">Github</a></li>
           <li><a href = "https://twitter.com/dARK_f3n1Xx">Twitter</a></li>
       </ul>
+      <div class align="right">
           {% if request.user.is_authenticated %}
-          <a class="navbar-brand navbar-right" href="#">Logout</a>
+              <button type="button" class="btn btn-default navbar-btn" onclick="document.getElementById('sign_out').submit()">Sign Out</button>
+              <form id="sign_out" method = "POST" action="{% url 'signer:log_out' %}">
+              {% csrf_token %}
+              <input type="hidden">
+              </form>
           {% else %}
-          <a class="navbar-brand navbar-right" href="#">Login</a>
-          <a class="navbar-brand navbar-right" href="#">Signup</a>
+          <button type="button" class="btn btn-default navbar-btn" onclick="location.href='{% url 'signer:log_in' %}'">Sign in</button>
+          <button type="button" class="btn btn-default navbar-btn" onclick="location.href='{% url 'signer:signup' %}'">Sign up</button>
           {% endif %}
+      </div>
   </div>
 
   </div>
   </div>
 </nav>
-    <h1> Navigation Bar</h1>
+
+
 <div class = "container" align="center" >
     {% block content %}
     {% endblock %}
 </div>
-    <h2> Footer </h2>
+
+    <footer class="footer" content="center-block">
+      <div class="container">
+        <p class="text-muted">© 1996-2017, sexiness.com, Inc. or its affiliates.</p>
+      </div>
+    </footer>
+
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

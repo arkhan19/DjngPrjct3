@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from vs.posts import views
 # Create your views here.
 
 
@@ -20,7 +21,7 @@ def signup(request):
             # if User does not exist in database
             except User.DoesNotExist:
                 # create a user with username and password from POST function
-                user = User.objects.create_user(request.POST['Username'], password = request.POST['pass1'],
+                user = User.objects.create_user(request.POST['Username'], password=request.POST['pass1'],
                                                 email=request.POST['emaik'])
                 login(request, user)
                 # finally return the signup html after successfull completion
@@ -37,14 +38,20 @@ def log_in(request):
     if request.method == 'POST':
         user = authenticate(username=request.POST['Username'], password=request.POST['pass1'])
         if user is not None:
-            login(request,user)
+            login(request, user)
             if 'next' in request.POST: # checks if next is in POST, so that it doesn't get stuck when no next.
                 # redirecting after logging in; POST = post function not Post App.
                 return redirect(request.POST['next'])
                 # return render(request, 'signer/login.html', {'error': 'I WENT IN'})
             else:
-                return render(request, 'signer/login.html', {'error': 'LOGGED IN!!!'})
+                return redirect('home')
         else:
             return render(request, 'signer/login.html', {'error': 'Wrong Credentials! Try Again'})
     else:
         return render(request, 'signer/login.html')
+
+
+def signout(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('home')
