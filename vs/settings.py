@@ -57,7 +57,7 @@ ROOT_URLCONF = 'vs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['vs/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

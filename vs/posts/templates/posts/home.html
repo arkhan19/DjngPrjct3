@@ -1,4 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,4 +42,7 @@ on {{post.pub_date}} by {{post.author}} with {{post.commends}} commends.
 {% endfor %}
 
 </body>
+
 </html>
+
+{% endblock %}
