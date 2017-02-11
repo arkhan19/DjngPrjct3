@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-
+from django.contrib.auth.models import User
 # Create your views here.
 from vs.posts.models import Posts  # model class
 
@@ -49,6 +49,10 @@ def c_down(request, pk):
         counter.save()
         return redirect('home')
 
+
+def auser(request, us):
+        homies = Posts.objects.order_by('commends')
+        return render(request, 'posts/author.html', {'foo': homies,'bar': us})
 
 
 

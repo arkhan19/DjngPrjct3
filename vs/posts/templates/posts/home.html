@@ -14,38 +14,55 @@
 
 
 {% for post in post_obj_for_html.all %}
+<table>
+<tr>
+    <td>
+        <a href = '{{ post.url }}'>{{ post.title }}</a>
 
-    <table>
-            <td style="padding-left: 30px;" onclick="document.getElementById('thumbs_up').submit()">
-                <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">
-                    <form action = "{% url 'posts:counter_up' post.id %}" method="POST" id="thumbs_up">
+    </td>
+    <td style="padding-left: 20px;">
+        Posted by :  <a href = "{% url 'posts:postings' post.author %}">{{post.author}}</a>
+    </td>
+</tr>
+<tr>
+    <td>
+        Commends : {{post.commends}}
+    </td>
+    <td style="padding-right: 20px; padding-left: 20px;">
+        Published on : {{post.pub_date}}
+    </td>
+</tr>
+<tr>
+    <td>
+        <a href ="#" onClick="document.getElementById('thumbs_up {{ post.id }}').submit()">
+            <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        </a>
+    </td>
+
+    <td>
+        <a href ="#" onClick="document.getElementById('thumbs_down {{ post.id }}').submit()">
+            <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+        </a>
+    </td>
+</tr>
+</table>
+{#                    This section is used by thumbs up and thumbs down to funciton.#}
+
+                    <form action = "{% url 'posts:counter_up' post.id %}" method="POST" id="thumbs_up {{ post.id }}">
                         {% csrf_token %}
                         <input type="hidden" />
                     </form>
-                </span>
-            </td>
-            <td><a href = {{ post.url }}>{{ post.title }}</a></td>
-            <td style="padding-left: 30px;" onclick="document.getElementById('thumbs_down').submit()">
-                <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true">
-                    <form action = "{% url 'posts:counter_down' post.id %}" method="POST" id="thumbs_down">
+
+                    <form action = "{% url 'posts:counter_down' post.id %}" method="POST" id="thumbs_down {{ post.id }}">
                         {% csrf_token %}
                         <input type="hidden" />
                     </form>
-                </span>
-            </td>
-        </tr>
-    <tr></tr>
-         <td style="padding-right: 20px">By : {{post.author}} <br/></td>
-         <td>Commends : {{post.commends}} <br/></td>
-        <td style="padding-left: 28px">Published on : {{post.pub_date}} <br/></td>
-    </table>
-    <br/>
-    <br />
+
+
+<br />
+<br />
 <br />
 {% endfor %}
-
 </body>
-
 </html>
-
 {% endblock %}
