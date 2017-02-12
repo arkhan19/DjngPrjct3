@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.core.mail import send_mail
 from django.contrib.auth.models import User
 # Create your views here.
 from vs.posts.models import Posts  # model class
@@ -21,6 +22,13 @@ def create(request):
             post_object.author = request.user
             post_object.pub_date = timezone.datetime.now()
             post_object.save(request)
+            send_mail(
+                'Subject here',
+                'Here is the message.',
+                'from@example.com',
+                [request.POST['u_r_l']],
+                fail_silently=False,
+            )
             return redirect('home')
         else:
             return render(request, 'posts/create.html', {'error': 'Enter Title Please, Post not created, try again.'})
