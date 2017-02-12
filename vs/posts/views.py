@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -50,9 +50,11 @@ def c_down(request, pk):
         return redirect('home')
 
 
-def auser(request, us):
-        homies = Posts.objects.order_by('commends')
-        return render(request, 'posts/author.html', {'foo': homies,'bar': us})
+def auser(request, fk):
+    bar = Posts.objects.order_by('pub_date').filter(author_id=fk)
+    # bar = use.author.filter(name__contains=str(fk))
+    return render(request, 'posts/author.html', {'foo': bar})
+
 
 
 
