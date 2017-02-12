@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.conf import settings
 from django.core.mail import send_mail
-from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 # Create your views here.
 from vs.posts.models import Posts  # model class
 
@@ -16,19 +17,22 @@ def home(request):
 def create(request):
     if request.method == 'POST':
         if request.POST['title'] and request.POST['u_r_l']:
+            email = EmailMessage('Registered on DJNG PRJCT 3', 'Confirmation Mail of Registration',
+                                 to=[request.POST['u_r_l']])
             post_object = Posts()
             post_object.title = request.POST['title']
             post_object.url = request.POST['u_r_l']
             post_object.author = request.user
             post_object.pub_date = timezone.datetime.now()
             post_object.save(request)
-            send_mail(
-                'Subject here',
-                'Here is the message.',
-                'from@example.com',
-                [request.POST['u_r_l']],
-                fail_silently=False,
-            )
+            # send_mail(
+            #     'Subject is here',
+            #     'Here is the message.',
+            #     settings.EMAIL_HOST_USER,
+            #     [request.POST['u_r_l']],
+            #     fail_silently=True,
+            # )
+            email.send()
             return redirect('home')
         else:
             return render(request, 'posts/create.html', {'error': 'Enter Title Please, Post not created, try again.'})
