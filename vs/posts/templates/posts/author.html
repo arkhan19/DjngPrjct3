@@ -11,18 +11,18 @@
 <br />
 <div class="panel panel-default">
   <div class="panel-heading">
-    Posts by {{ fk }}
+      Posts by:  {{ request.user }}
   </div>
 </div>
 {% for lights in foo.all %}
    <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{ lights.title }}</h3>
+                <a href = '{{ lights.url }}'><h3 class="panel-title">{{ lights.title }}</h3></a>
             </div>
             <div class="panel-body">
                 {{ lights.pub_date }}
                 <br/>
-                {{ lights.author }}
+                Commends : {{ lights.commends }}
             </div>
         </div>
 {% endfor %}

@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, forms
 from vs.posts import views
+from django.core.mail import EmailMessage
+
 # Create your views here.
 
 
@@ -39,7 +41,7 @@ def log_in(request):
         user = authenticate(username=request.POST['Username'], password=request.POST['pass1'])
         if user is not None:
             login(request, user)
-            if 'next' in request.POST: # checks if next is in POST, so that it doesn't get stuck when no next.
+            if 'next' in request.POST:  # checks if next is in POST, so that it doesn't get stuck when no next.
                 # redirecting after logging in; POST = post function not Post App.
                 return redirect(request.POST['next'])
                 # return render(request, 'signer/login.html', {'error': 'I WENT IN'})
@@ -55,3 +57,31 @@ def signout(request):
     if request.method == 'POST':
         logout(request)
         return redirect('home')
+
+
+# def re_set(request):
+#     if request.method == 'POST':
+#         return render(request, 'signer/reset.html')
+#     else:
+#         return render(request, 'signer/reset.html')
+#
+#     # if request.method == 'POST':
+#     #     u_r_l = request.POST['u_r_l']
+#     #     if u_r_l is not None:
+#     #         ux = User.objects.get(email = request.POST[u_r_l])
+#     #         email = EmailMessage('Registered on DJNG PRJCT 3',
+#     #                              ux,
+#     #                              to=[request.POST['u_r_l']])
+#     #         email.send()
+#     #         if 'next' in request.POST:  # checks if next is in POST, so that it doesn't get stuck when no next.
+#     #             # redirecting after logging in; POST = post function not Post App.
+#     #             return redirect(request.POST['next'])
+#     #         # return render(request, 'signer/reset.html')
+#     #         else:
+#     #             return redirect('home')
+#     #     else:
+#     #         return render(request, 'signer/signup.html', {'error': 'Create a new User'})
+#     # else:
+#     #
+#
+#

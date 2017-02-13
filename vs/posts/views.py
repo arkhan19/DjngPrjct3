@@ -44,6 +44,7 @@ def __str__(self):
     return '%s' % self.title
 
 
+@login_required
 def c_up(request, pk):
     if request.method == 'POST':
         #  model's primary key
@@ -52,7 +53,7 @@ def c_up(request, pk):
         counter.save()
         return redirect('home')
 
-
+@login_required
 def c_down(request, pk):
     #  model's primary key
     if request.method == 'POST':
@@ -61,11 +62,11 @@ def c_down(request, pk):
         counter.save()
         return redirect('home')
 
-
+@login_required
 def auser(request, fk):
     bar = Posts.objects.order_by('pub_date').filter(author_id=fk)
     # bar = use.author.filter(name__contains=str(fk))
-    return render(request, 'posts/author.html', {'foo': bar})
+    return render(request, 'posts/author.html', {'foo': bar}, {'ray': fk})
 
 
 

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'vs.signer',
     'vs.posts',
+    'password_reset',
 ]
 
 MIDDLEWARE_CLASSES = [

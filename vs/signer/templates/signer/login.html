@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up</title>
+    <title>Sign In</title>
 </head>
 <body>
     <h1>Login to your Account</h1>
@@ -20,6 +20,8 @@
         Password : <br /><input  type="password" name="pass1" />
         <br />
         <br /><input type="SUBMIT" value="Login" />
+        <br/>
+        <br /> <a href={% url "password_reset_recover" %}>Forgot Password</a>
     </form>
     <br />
     {% if error %}
